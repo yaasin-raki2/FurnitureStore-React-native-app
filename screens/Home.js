@@ -30,7 +30,7 @@ const ScrollableTab = ({ tabList, selectedTab, onPress }) => {
               borderRadius: 5,
               backgroundColor: COLORS.blue,
             }}
-          ></View>
+          />
         </View>
       )}
     </TouchableOpacity>
@@ -275,6 +275,25 @@ const Home = ({ navigation }) => {
     );
   };
 
+  const renderPromotionCard = () => {
+    return (
+      <View
+        style={[
+          styles.shadow,
+          {
+            flexDirection: 'row',
+            marginHorizontal: SIZES.padding,
+            marginBottom: 10,
+            padding: SIZES.radius,
+            height: 110,
+            borderRadius: 20,
+            backgroundColor: COLORS.white,
+          },
+        ]}
+      ></View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="white" barStyle="dark-content" />
@@ -294,7 +313,9 @@ const Home = ({ navigation }) => {
           productList={selectedTab.productList}
         />
       </View>
-      <View style={{ height: '19%' }}></View>
+      <View style={{ height: '19%', justifyContent: 'flex-end' }}>
+        {renderPromotionCard()}
+      </View>
     </SafeAreaView>
   );
 };
