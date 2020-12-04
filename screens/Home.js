@@ -7,42 +7,107 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
-  FlatList
+  FlatList,
 } from 'react-native';
 
 import { images, icons, COLORS, FONTS, SIZES } from '../constants/';
 
 const ScrollableTab = ({ tabList, selectedTab, onPress }) => {
-
   const renderItem = ({ item }) => (
-    <TouchableOpacity 
+    <TouchableOpacity
       style={{ marginHorizontal: SIZES.padding }}
-      onPress={()=> onPress(item)} 
+      onPress={() => onPress(item)}
     >
-      <Text style={{ color: COLORS.secondary, ...FONTS.body2 }}>{item.name}</Text>
-      {
-        selectedTab.id == item.id &&
+      <Text style={{ color: COLORS.secondary, ...FONTS.body2 }}>
+        {item.name}
+      </Text>
+      {selectedTab.id == item.id && (
         <View style={{ alignItems: 'center', marginTop: SIZES.base }}>
-          <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: COLORS.blue }}></View>
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              backgroundColor: COLORS.blue,
+            }}
+          ></View>
         </View>
-      }
+      )}
     </TouchableOpacity>
-  )
+  );
 
   return (
     <View style={{ marginTop: SIZES.padding }}>
-      <FlatList 
+      <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
         data={tabList}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
       />
     </View>
-  )
-}
+  );
+};
 
-const Home = () => {
+const ScrollableCard = ({ navigation, productList }) => {
+  const renderCard = ({ item }) => (
+    <TouchableOpacity
+      style={{ marginLeft: SIZES.padding }}
+      onPress={() => navigation.navigate('ItemDetail', { itemInfo: item })}
+    >
+      <View style={{ width: SIZES.width / 2 }}>
+        <Image
+          source={item.image}
+          resizeMode="cover"
+          style={{
+            width: '100%',
+            height: '100%',
+            borderRadius: SIZES.radius * 2,
+          }}
+        />
+      </View>
+
+      <View
+        style={{ position: 'absolute', top: 15, left: '10%', right: '10%' }}
+      >
+        <Text style={{ color: COLORS.lightGray2, ...FONTS.h3 }}>Furniture</Text>
+        <Text
+          style={{ color: COLORS.white, ...FONTS.h2, marginTop: SIZES.base }}
+        >
+          {item.productName}
+        </Text>
+      </View>
+
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 20,
+          left: 30,
+          borderRadius: 15,
+          paddingVertical: 10,
+          paddingHorizontal: 15,
+          backgroundColor: COLORS.transparentLightGray,
+        }}
+      >
+        <Text style={{ ...FONTS.h2 }}>$ {item.price.toFixed(2)}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  return (
+    <View style={{ marginTop: SIZES.padding }}>
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={productList}
+        renderItem={renderCard}
+        keyExtractor={(item) => item.productId}
+      />
+    </View>
+  );
+};
+
+const Home = ({ navigation }) => {
   const [tabList, setTabList] = useState([
     {
       id: 0,
@@ -52,22 +117,22 @@ const Home = () => {
         {
           productId: 1,
           productName: 'Chair Green Colour',
-          price: 10.00,
+          price: 10.0,
           image: images.greenChair,
         },
         {
           productId: 2,
           productName: 'Chair Peach Colour',
-          price: 10.00,
+          price: 10.0,
           image: images.redChair,
         },
         {
           productId: 3,
           productName: 'Chair White Colour',
-          price: 10.00,
+          price: 10.0,
           image: images.whiteChair,
-        }
-      ]
+        },
+      ],
     },
     {
       id: 1,
@@ -141,10 +206,10 @@ const Home = () => {
           productName: 'Product 12',
           price: 10.0,
           image: images.redChair,
-        }
-      ]
-    }
-  ])
+        },
+      ],
+    },
+  ]);
 
   const [selectedTab, setSelectedTab] = useState({
     id: 0,
@@ -153,23 +218,23 @@ const Home = () => {
       {
         productId: 1,
         productName: 'Chair Green Colour',
-        price: 10.00,
+        price: 10.0,
         image: images.greenChair,
       },
       {
         productId: 2,
         productName: 'Chair Peach Colour',
-        price: 10.00,
+        price: 10.0,
         image: images.redChair,
       },
       {
         productId: 3,
         productName: 'Chair White Colour',
-        price: 10.00,
+        price: 10.0,
         image: images.whiteChair,
-      }
-    ]
-  })
+      },
+    ],
+  });
 
   //render
   const renderHeader = () => {
@@ -217,11 +282,19 @@ const Home = () => {
 
       {renderTitle(selectedTab.title)}
 
-      <ScrollableTab 
+      <ScrollableTab
         tabList={tabList}
         selectedTab={selectedTab}
-        onPress={item => setSelectedTab(item)}
+        onPress={(item) => setSelectedTab(item)}
       />
+
+      <View style={{ flex: 1 }}>
+        <ScrollableCard
+          navigation={navigation}
+          productList={selectedTab.productList}
+        />
+      </View>
+      <View style={{ height: '19%' }}></View>
     </SafeAreaView>
   );
 };
