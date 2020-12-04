@@ -290,7 +290,70 @@ const Home = ({ navigation }) => {
             backgroundColor: COLORS.white,
           },
         ]}
-      ></View>
+      >
+        <View
+          style={{
+            width: 50,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: COLORS.lightGray2,
+            borderRadius: 20,
+          }}
+        >
+          <Image
+            source={images.sofa}
+            resizeMode="contain"
+            style={{
+              width: '60%',
+              height: '60%',
+            }}
+          />
+        </View>
+
+        {/* Wording Section */}
+
+        <View
+          style={{
+            flex: 1,
+            marginLeft: SIZES.radius,
+            justifyContent: 'center',
+          }}
+        >
+          <Text style={{ ...FONTS.h2 }}>Special Offer</Text>
+          <Text style={{ ...FONTS.body3 }}>Adding to your cart</Text>
+        </View>
+
+        {/* Button */}
+
+        <View
+          style={{
+            marginRight: SIZES.padding,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              backgroundColor: COLORS.primary,
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '70%',
+              width: 40,
+              borderRadius: 10,
+            }}
+            onPress={() => console.warn('Promo on clicked')}
+          >
+            <Image
+              source={icons.chevron}
+              resizeMode="contain"
+              style={{
+                height: '50%',
+                width: '50%',
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   };
 
