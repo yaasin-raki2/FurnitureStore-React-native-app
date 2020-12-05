@@ -239,7 +239,12 @@ const Home = ({ navigation }) => {
   //render
   const renderHeader = () => {
     return (
-      <View style={{ paddingHorizontal: SIZES.padding }}>
+      <View
+        style={{
+          paddingHorizontal: SIZES.padding,
+          marginTop: SIZES.padding * 2,
+        }}
+      >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableOpacity onPress={() => console.warn('Menu on clicked')}>
             <Image
@@ -359,7 +364,11 @@ const Home = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor="white" barStyle="dark-content" />
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="dark-content"
+      />
       {renderHeader()}
 
       {renderTitle(selectedTab.title)}
