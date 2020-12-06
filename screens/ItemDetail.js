@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native';
 
-import { COLORS, SIZES, FONTS, icons } from '../constants/index';
+import { COLORS, SIZES, FONTS, icons, images } from '../constants/index';
 
 const ItemDetail = ({ route, navigation }) => {
   // Render
@@ -130,6 +130,28 @@ const ItemDetail = ({ route, navigation }) => {
               </Text>
             </View>
           </View>
+
+          <View
+            style={{
+              position: 'absolute',
+              bottom: '20%',
+              left: SIZES.padding,
+              right: SIZES.padding,
+            }}
+          >
+            <Text style={{ color: COLORS.lightGray2, ...FONTS.body2 }}>
+              Furniture
+            </Text>
+            <Text
+              style={{
+                marginTop: SIZES.base,
+                color: COLORS.white,
+                ...FONTS.h1,
+              }}
+            >
+              {itemInfo.productName}
+            </Text>
+          </View>
         </ImageBackground>
       );
     } else {
@@ -137,10 +159,83 @@ const ItemDetail = ({ route, navigation }) => {
     }
   };
 
+  const renderFooter = () => {
+    return (
+      <View
+        style={{
+          position: 'absolute',
+          bottom: '5%',
+          left: SIZES.padding,
+          right: SIZES.padding,
+          flexDirection: 'row',
+          height: 70,
+          backgroundColor: COLORS.white,
+          borderRadius: 35,
+        }}
+      >
+        <View
+          style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}
+        >
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image
+              source={icons.dashboard}
+              style={{
+                tintColor: COLORS.gray,
+                width: 25,
+                height: 25,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}
+        >
+          <TouchableOpacity
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 50,
+              width: 50,
+              borderRadius: 10,
+              backgroundColor: COLORS.primary,
+            }}
+            onPress={() => console.log('Profile on click')}
+          >
+            <Image
+              source={icons.plus}
+              style={{
+                tintColor: COLORS.white,
+                width: 20,
+                height: 20,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}
+        >
+          <TouchableOpacity onPress={() => console.log('Profile on click')}>
+            <Image
+              source={icons.user}
+              style={{
+                tintColor: COLORS.gray,
+                width: 25,
+                height: 25,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <StatusBar translucent backgroundColor="transparent" />
       {renderInfo()}
+      {renderFooter()}
     </View>
   );
 };
